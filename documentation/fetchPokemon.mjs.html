@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: functionsToTest.js</title>
+    <title>JSDoc: Source: fetchPokemon.mjs</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: functionsToTest.js</h1>
+    <h1 class="page-title">Source: fetchPokemon.mjs</h1>
 
     
 
@@ -27,43 +27,50 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>/**
- * Place les arguments dans un objet avec pour clé la position de l'argument dans la liste des arguments
- * @function returnAnObject
- * @param {...*} args Arguments passés à la fonction
- * @returns {Object&lt;*>|String} Un objet contenant les paramètres passés en argument ou un message d'information en cas d'absence d'arguments
+ * @module fetchPokemon
  */
-const returnAnObject = (...args) => {
-  let response = {};
-  if (args.length) {
-    let index = 0;
-    args.forEach((arg) => {
-      response[index] = arg;
-      index++;
-    });
-  } else {
-    response = "No argument was given to the function.";
-  }
-  return response;
-};
 
 /**
- * Multiplie par 2 tous les nombres contenus dans le tableau passé en argument
- * @function multiplyAllByTwo
- * @param {number[]} arrayOfNumbers Un tableau de nombres
- * @returns {number[]|string} Un tableau de nombres ou un message d'information si l'argument fourni est incorrect
+ * Affiche le nom d'un pokémon choisi aléatoirement
+ * @async
+ * @function fetchPokemon
  */
-const multiplyAllByTwo = (arrayOfNumbers) => {
-  let response;
-  if (
-    arrayOfNumbers.constructor.prototype === new Array().constructor.prototype
-  ) {
-    response = arrayOfNumbers.map((val) => val * 2);
-    console.log("arrayTimesTwo: ", response);
-  } else {
-    response = "The argument is not an Array of numbers";
+const fetchPokemon = async () => {
+  const pokeP = document.getElementById("pokeInfo");
+  const pokeAbilityBtn = document.getElementById("ability");
+  const pokedexNum = Math.floor(Math.random() * 897);
+  let foundPokemon = "";
+  let jsonPokemon = "";
+  const pokeInfo = {};
+
+  try {
+    foundPokemon = await fetch(
+      `https://pokeapi.co/api/v2/pokemon/${pokedexNum}`,
+      { method: "GET", headers: { "Content-Type": "application/json" } },
+    );
+  } catch (error) {
+    console.error(error.message);
   }
-  return response;
+
+  if (foundPokemon) {
+    try {
+      jsonPokemon = await foundPokemon.json();
+      pokeInfo.name = `${String(jsonPokemon.species.name).slice(0, 1).toUpperCase()}${String(jsonPokemon.species.name).slice(1, jsonPokemon.species.name.length).toLowerCase()}`;
+    } catch (error) {
+      console.error(error.message);
+    }
+  } else {
+    pokeInfo.name = "No Pokémon found...";
+  }
+
+  if (pokeP.innerText !== "") {
+    pokeP.innerText = "";
+  }
+  pokeP.innerText = `Your Pokémon is ${pokeInfo.name}.`;
+  pokeAbilityBtn.removeAttribute("disabled");
 };
+
+export { fetchPokemon };
 </code></pre>
         </article>
     </section>
