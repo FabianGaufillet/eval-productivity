@@ -14,7 +14,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "express-session": "^1.17.2",
-    "jsdoc": "^4.0.3"
+    "jsdoc": "^4.0.3",
+    "sanitize-html": "^2.13.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

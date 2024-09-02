@@ -2,6 +2,7 @@ import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
 import cors from "cors";
+import sanitizeHtml from "sanitize-html";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -44,7 +45,7 @@ app.get("/", (req, res) => {
  */
 app.post("/comment", (req, res) => {
   const comment = req.body.message;
-  res.send(comment);
+  res.send(sanitizeHtml(comment, { disallowedTagsMode: "recursiveEscape" }));
 });
 
 /**
