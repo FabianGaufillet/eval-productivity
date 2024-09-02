@@ -36,3 +36,4 @@ const multiplyAllByTwo = (arrayOfNumbers) => {
   }
   return response;
 };
+export { returnAnObject, multiplyAllByTwo };
