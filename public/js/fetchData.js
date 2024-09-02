@@ -44,7 +44,7 @@ window.addEventListener('DOMContentLoaded',()=>{
       catch(error){console.error(error.message)}
 
     }
-    else{jsonPokemon='No Pokémon found...'}
+    else{pokeInfo.name = 'No Pokémon found...'}
 
     if(pokeP.innerText !== ''){pokeP.innerText=''}
     pokeP.innerText=`Your Pokémon is ${pokeInfo.name}.`
@@ -79,7 +79,7 @@ window.addEventListener('DOMContentLoaded',()=>{
       catch(error){console.error(error.message)}
 
     }
-    else{jsonAbilities='No ability found...'}
+    else{abilityToDisplay='No ability found...'}
 
     if(pokeAbility.innerText !== ''){pokeAbility.innerText=''}
 
@@ -101,6 +101,7 @@ window.addEventListener('DOMContentLoaded',()=>{
    * @function pokemonAbility
    */
   const pokemonAbility=()=>{
+    const pokeAbility = document.getElementById("pokeAbility");
     pokeAbilityBtn.addEventListener('click', fetchPokemonAbilities)
     pokeDiv.appendChild(pokeAbility)
   }
