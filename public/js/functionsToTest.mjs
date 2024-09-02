@@ -1,4 +1,8 @@
 /**
+ * @module functionsToTest
+ */
+
+/**
  * Place les arguments dans un objet avec pour clé la position de l'argument dans la liste des arguments
  * @function returnAnObject
  * @param {...*} args Arguments passés à la fonction
